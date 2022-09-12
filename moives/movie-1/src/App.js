@@ -1,6 +1,6 @@
 
 import './App.css';
-import item from './item_1';
+import ItemApi from './item_1';
 
 function App() {
   
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         {/* instantiate the imported component */}
-        <item name="itemApi"/>
+        <ItemApi name="itemApi"/>
 
         
       </header>
