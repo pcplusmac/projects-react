@@ -1,4 +1,15 @@
 import React from "react";
+// create component for FilmRow
+class FilmRow extends React.Component{
+    render(){
+        return(
+            
+                <li>film{this.props.number+1}: {this.props.film}</li>
+            
+        )
+    }
+}
+
 
 // create the class for this component
 class ItemApi extends React.Component{
@@ -12,7 +23,8 @@ class ItemApi extends React.Component{
             homeworld: null,
             films: [],
             // put a pair for verifying the newData coming
-            newData:false
+            newData:false,
+            click_num:0
 
         }
 
@@ -31,10 +43,11 @@ class ItemApi extends React.Component{
                 this.setState({
                     name:data.name,
                     birth_year: data.birth_year,
-                    homeworld: this.state.homeworld,
+                    homeworld: data.homeworld,
                     films: data.films,
                     // put a pair for verifying the newData coming
-                    newData:true
+                    newData:true,
+                    click_num: this.state.click_num+1
                 })
                 
             })
@@ -42,13 +55,14 @@ class ItemApi extends React.Component{
     }
 
     // in render, implement the return statment so that the component can be use the all set state data to complete the jsx code for the browser as output; 
-    // add button if there is need for button in component.  
+      
     
     render(){
         // assign jsx code to variable 'movies' using map()
         const movies= this.state.films.map((url,i)=>{
             return (
-                <FilmRow key={i} film={url} />
+                <ul><FilmRow key={i} film={url} number={i} /></ul>
+                
 
         )})
         return(
@@ -59,14 +73,23 @@ class ItemApi extends React.Component{
                     <div>
                         <h1>name:{this.state.name}</h1>
                         <h1>birth_year: {this.state.birth_year}</h1>
-                        <h1>homeworld:<a href={this.state.homeworld}></a></h1>
+                        <h1>homeworld:<a href={this.state.homeworld}>link</a></h1>
                         <h1> {movies}</h1>
                     </div>
                 
 
                 
                 }
+                {/* // add button if there is need for button in component. */}
+                <div>
+                   <button type="button" className="btn" onClick={()=>this.getNew()}> get new data</button> 
+                   <span>{this.state.click_num} times requests on this data</span>
+                </div>
+                
+
             </div>
         )
     }
 }
+
+export default ItemApi
